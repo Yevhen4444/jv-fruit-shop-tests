@@ -35,5 +35,4 @@ public class ReportGeneratorTest {
         String report = reportGenerator.generateReport();
         Assertions.assertEquals("fruit,quantity" + System.lineSeparator(), report);
     }
-
 }

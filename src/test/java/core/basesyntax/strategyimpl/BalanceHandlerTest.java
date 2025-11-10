@@ -13,5 +13,4 @@ public class BalanceHandlerTest {
         balanceHandler.handle("apple", 50);
         Assertions.assertEquals(50, fruitStock.getQuantity("apple"));
     }
-
 }

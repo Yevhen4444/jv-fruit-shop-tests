@@ -44,6 +44,4 @@ public class DataConverterImplTest {
         );
         Assertions.assertTrue(exception.getMessage().contains("Invalid string format"));
     }
-
 }
-
