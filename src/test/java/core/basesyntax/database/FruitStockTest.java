@@ -13,16 +13,15 @@ public class FruitStockTest {
     }
 
     @Test
-    void add() {
+    void add_successful() {
         FruitStock.stock.clear();
         FruitStock fruitStock = new FruitStock();
         fruitStock.add("apple", 10);
         Assertions.assertEquals(10, fruitStock.getQuantity("apple"));
     }
 
-
     @Test
-    void subtract() {
+    void subtract_shouldDecreaseQuantity() {
         FruitStock fruitStock = new FruitStock();
         fruitStock.add("banana", 15);
         fruitStock.subtract("banana", 5);

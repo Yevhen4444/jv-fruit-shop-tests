@@ -12,13 +12,13 @@ public class DataConverterImplTest {
 
     @Test
     void convertToTransaction_validInput_shouldReturnCorrectTransactions() {
-        DataConverterImpl dataConverter1 = new DataConverterImpl();
+        DataConverterImpl dataConverterImpl = new DataConverterImpl();
         List<String> inputReport = List.of(
                 "type,fruit,quantity",
                 "b,apple,10",
                 "s,banana,5"
         );
-        List<FruitTransaction> transactions = dataConverter1.convertToTransaction(inputReport);
+        List<FruitTransaction> transactions = dataConverterImpl.convertToTransaction(inputReport);
         Assertions.assertEquals(2, transactions.size());
 
         FruitTransaction first = transactions.get(0);

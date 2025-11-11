@@ -34,7 +34,6 @@ public class OperationStrategyImplTest {
 
     @Test
     void executeOperation_unsupportedOperation_shouldThrowException() {
-        // arrange
         Map<Operation, OperationHandler> handlers = new HashMap<>();
         OperationStrategyImpl strategy = new OperationStrategyImpl(handlers);
         FruitTransaction transaction = new FruitTransaction(Operation.PURCHASE, "apple", 10);
