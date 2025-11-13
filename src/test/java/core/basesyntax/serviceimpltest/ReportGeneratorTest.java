@@ -1,17 +1,15 @@
 package core.basesyntax.serviceimpltest;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import core.basesyntax.database.FruitStock;
 import core.basesyntax.serviceimpl.ReportGenerator;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class ReportGeneratorTest {
 
-    @AfterEach
+    @BeforeEach
     void setUp() {
         FruitStock.stock.clear();
     }
@@ -23,9 +21,9 @@ public class ReportGeneratorTest {
         fruitStock.add("banana", 5);
         ReportGenerator reportGenerator = new ReportGenerator(fruitStock);
         String report = reportGenerator.generateReport();
-        assertTrue(report.startsWith("fruit,quantity"), "Report should start with header");
-        assertTrue(report.contains("apple,10"), "Report should contain apple with correct quantity");
-        assertTrue(report.contains("banana,5"), "Report should contain banana with correct quantity");
+        assertTrue(report.startsWith("fruit,quantity"), "No header");
+        assertTrue(report.contains("apple,10"), "Missing apple");
+        assertTrue(report.contains("banana,5"), "Missing banana");
     }
 
     @Test
@@ -33,6 +31,7 @@ public class ReportGeneratorTest {
         FruitStock fruitStock = new FruitStock();
         ReportGenerator reportGenerator = new ReportGenerator(fruitStock);
         String report = reportGenerator.generateReport();
-        assertEquals("fruit,quantity" + System.lineSeparator(), report);
+        assertTrue(report.equals("fruit,quantity" + System.lineSeparator()),
+                "Report should contain only header for empty stock");
     }
 }
