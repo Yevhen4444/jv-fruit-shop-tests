@@ -3,13 +3,12 @@ package core.basesyntax.strategyimpl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import core.basesyntax.database.FruitStock;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class ReturnHandlerTest {
 
-    @AfterEach
+    @BeforeEach
     void clearStock() {
         FruitStock.stock.clear();
     }

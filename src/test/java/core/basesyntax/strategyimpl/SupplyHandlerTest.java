@@ -3,7 +3,6 @@ package core.basesyntax.strategyimpl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import core.basesyntax.database.FruitStock;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +11,7 @@ class SupplyHandlerTest {
     private FruitStock fruitStock;
     private SupplyHandler supplyHandler;
 
-    @AfterEach
+    @BeforeEach
     void setUp() {
         FruitStock.stock.clear();
         fruitStock = new FruitStock();
