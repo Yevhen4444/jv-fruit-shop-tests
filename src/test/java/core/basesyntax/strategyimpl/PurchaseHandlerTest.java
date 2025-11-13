@@ -1,13 +1,16 @@
 package core.basesyntax.strategyimpl;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import core.basesyntax.database.FruitStock;
-import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class PurchaseHandlerTest {
 
-    @BeforeEach
+    @AfterEach
     void clearStock() {
         FruitStock.stock.clear();
     }
@@ -18,7 +21,7 @@ public class PurchaseHandlerTest {
         PurchaseHandler purchaseHandler = new PurchaseHandler(fruitStock);
         fruitStock.add("apple", 30);
         purchaseHandler.handle("apple", 20);
-        Assertions.assertEquals(10, fruitStock.getQuantity("apple"));
+        assertEquals(10, fruitStock.getQuantity("apple"));
     }
 
     @Test
@@ -26,18 +29,14 @@ public class PurchaseHandlerTest {
         FruitStock fruitStock = new FruitStock();
         PurchaseHandler purchaseHandler = new PurchaseHandler(fruitStock);
         fruitStock.add("banana", 15);
-        Assertions.assertThrows(RuntimeException.class, () -> {
-            purchaseHandler.handle("banana", 20);
-        });
+        assertThrows(RuntimeException.class, () -> purchaseHandler.handle("banana", 20));
     }
 
     @Test
     void handle_shouldThrowException_ifFruitNotInStock() {
         FruitStock fruitStock = new FruitStock();
         PurchaseHandler purchaseHandler = new PurchaseHandler(fruitStock);
-        Assertions.assertThrows(RuntimeException.class, () -> {
-            purchaseHandler.handle("orange", 10);
-        });
+        assertThrows(RuntimeException.class, () -> purchaseHandler.handle("orange", 10));
     }
 
     @Test
@@ -45,9 +44,7 @@ public class PurchaseHandlerTest {
         FruitStock fruitStock = new FruitStock();
         PurchaseHandler purchaseHandler = new PurchaseHandler(fruitStock);
         fruitStock.add("mango", 5);
-        Assertions.assertThrows(RuntimeException.class, () -> {
-            purchaseHandler.handle("mango", 10);
-        });
-        Assertions.assertEquals(5, fruitStock.getQuantity("mango"));
+        assertThrows(RuntimeException.class, () -> purchaseHandler.handle("mango", 10));
+        assertEquals(5, fruitStock.getQuantity("mango"));
     }
 }

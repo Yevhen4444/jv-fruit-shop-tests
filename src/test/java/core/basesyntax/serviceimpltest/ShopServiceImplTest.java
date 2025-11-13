@@ -1,5 +1,7 @@
 package core.basesyntax.serviceimpltest;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import core.basesyntax.database.FruitStock;
 import core.basesyntax.model.FruitTransaction;
 import core.basesyntax.model.Operation;
@@ -10,13 +12,14 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.junit.jupiter.api.Assertions;
+
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class ShopServiceImplTest {
 
-    @BeforeEach
+    @AfterEach
     void clearStock() {
         FruitStock.stock.clear();
     }
@@ -30,7 +33,6 @@ public class ShopServiceImplTest {
                 fruitStock.updateFruitQuantity(fruit, quantity);
         OperationHandler supplyHandler = (fruit, quantity) ->
                 fruitStock.add(fruit, quantity);
-
         Map<Operation, OperationHandler> handlers = new HashMap<>();
         handlers.put(Operation.BALANCE, balanceHandler);
         handlers.put(Operation.SUPPLY, supplyHandler);
@@ -41,9 +43,8 @@ public class ShopServiceImplTest {
                 new FruitTransaction(Operation.SUPPLY, "apple", 20),
                 new FruitTransaction(Operation.SUPPLY, "banana", 10)
         );
-
         shopService.process(transactions);
-        Assertions.assertEquals(70, fruitStock.getQuantity("apple"));
-        Assertions.assertEquals(10, fruitStock.getQuantity("banana"));
+        assertEquals(70, fruitStock.getQuantity("apple"));
+        assertEquals(10, fruitStock.getQuantity("banana"));
     }
 }

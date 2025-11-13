@@ -1,10 +1,13 @@
 package core.basesyntax.serviceimpltest;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import core.basesyntax.model.FruitTransaction;
 import core.basesyntax.model.Operation;
 import core.basesyntax.serviceimpl.DataConverterImpl;
 import java.util.List;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class DataConverterImplTest {
@@ -12,36 +15,32 @@ public class DataConverterImplTest {
 
     @Test
     void convertToTransaction_validInput_shouldReturnCorrectTransactions() {
-        DataConverterImpl dataConverterImpl = new DataConverterImpl();
         List<String> inputReport = List.of(
                 "type,fruit,quantity",
                 "b,apple,10",
                 "s,banana,5"
         );
-        List<FruitTransaction> transactions = dataConverterImpl.convertToTransaction(inputReport);
-        Assertions.assertEquals(2, transactions.size());
-
+        List<FruitTransaction> transactions = dataConverter.convertToTransaction(inputReport);
+        assertEquals(2, transactions.size());
         FruitTransaction first = transactions.get(0);
-        Assertions.assertEquals(Operation.BALANCE, first.getOperation());
-        Assertions.assertEquals("apple", first.getFruit());
-        Assertions.assertEquals(10, first.getQuantity());
-
+        assertEquals(Operation.BALANCE, first.getOperation());
+        assertEquals("apple", first.getFruit());
+        assertEquals(10, first.getQuantity());
         FruitTransaction second = transactions.get(1);
-        Assertions.assertEquals(Operation.SUPPLY, second.getOperation());
-        Assertions.assertEquals("banana", second.getFruit());
-        Assertions.assertEquals(5, second.getQuantity());
+        assertEquals(Operation.SUPPLY, second.getOperation());
+        assertEquals("banana", second.getFruit());
+        assertEquals(5, second.getQuantity());
     }
 
     @Test
     void convertToTransaction_invalidFormat_shouldThrowRuntimeException() {
-        DataConverterImpl dataConverter = new DataConverterImpl();
         List<String> inputReport = List.of(
                 "type,fruit,quantity",
                 "b,apple"
         );
-        RuntimeException exception = Assertions.assertThrows(RuntimeException.class, () ->
+        RuntimeException exception = assertThrows(RuntimeException.class, () ->
                 dataConverter.convertToTransaction(inputReport)
         );
-        Assertions.assertTrue(exception.getMessage().contains("Invalid string format"));
+        assertTrue(exception.getMessage().contains("Invalid string format"));
     }
 }

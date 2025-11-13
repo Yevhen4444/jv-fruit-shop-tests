@@ -1,12 +1,14 @@
 package core.basesyntax.serviceimpltest;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import core.basesyntax.service.FileWriter;
 import core.basesyntax.serviceimpl.FileWriterImpl;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class FileWriterImplTest {
@@ -27,7 +29,7 @@ public class FileWriterImplTest {
         FileWriter writer = new FileWriterImpl();
         writer.write(data, tempFile.toString());
         String fileContent = Files.readString(tempFile);
-        Assertions.assertEquals(data, fileContent);
+        assertEquals(data, fileContent);
     }
 
     @Test
@@ -35,7 +37,6 @@ public class FileWriterImplTest {
         FileWriter writer = new FileWriterImpl();
         String data = "apple,10";
         String invalidPath = "/invalid_path/test.txt";
-        Assertions.assertThrows(RuntimeException.class,
-                () -> writer.write(data, invalidPath));
+        assertThrows(RuntimeException.class, () -> writer.write(data, invalidPath));
     }
 }

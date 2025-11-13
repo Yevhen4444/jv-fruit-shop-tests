@@ -1,24 +1,26 @@
 package core.basesyntax.strategyimpl;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import core.basesyntax.database.FruitStock;
-import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class ReturnHandlerTest {
-    @BeforeEach
+
+    @AfterEach
     void clearStock() {
         FruitStock.stock.clear();
     }
 
     @Test
     void handle_shouldIncreaseStock_whenFruitExists() {
-
         FruitStock fruitStock = new FruitStock();
         ReturnHandler returnHandler = new ReturnHandler(fruitStock);
         fruitStock.add("apple", 10);
         returnHandler.handle("apple", 5);
-        Assertions.assertEquals(15, fruitStock.getQuantity("apple"));
+        assertEquals(15, fruitStock.getQuantity("apple"));
     }
 
     @Test
@@ -26,7 +28,7 @@ public class ReturnHandlerTest {
         FruitStock fruitStock = new FruitStock();
         ReturnHandler returnHandler = new ReturnHandler(fruitStock);
         returnHandler.handle("banana", 7);
-        Assertions.assertEquals(7, fruitStock.getQuantity("banana"));
+        assertEquals(7, fruitStock.getQuantity("banana"));
     }
 
     @Test
@@ -36,7 +38,7 @@ public class ReturnHandlerTest {
         ReturnHandler returnHandler = new ReturnHandler(fruitStock);
         fruitStock.add("apple", 15);
         returnHandler.handle("apple", 0);
-        Assertions.assertEquals(15, fruitStock.getQuantity("apple"));
+        assertEquals(15, fruitStock.getQuantity("apple"));
     }
 
     @Test
@@ -44,6 +46,6 @@ public class ReturnHandlerTest {
         FruitStock fruitStock = new FruitStock();
         ReturnHandler returnHandler = new ReturnHandler(fruitStock);
         returnHandler.handle("mango", 5);
-        Assertions.assertEquals(5, fruitStock.getQuantity("mango"));
+        assertEquals(5, fruitStock.getQuantity("mango"));
     }
 }
